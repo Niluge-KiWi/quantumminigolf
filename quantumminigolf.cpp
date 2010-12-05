@@ -173,32 +173,34 @@ wmain (int argc, char *argv[])
       // while the user doesn't press RET, Space or Esc, propagate the
       // wave function in the potential
       while (1)
-	{
-	  if (SDL_PollEvent (&dummyevent))
-	    {}
-	  switch (dummyevent.type)
-	    {
-	    case SDL_KEYDOWN:
-	      switch (dummyevent.key.keysym.sym)
-		{
-		case SDLK_RETURN:	//RET, Space or Esc - stop
-		case SDLK_ESCAPE:
-		case SDLK_SPACE:
-		  mainloopfinished = 1;
-		  break;
-		default:
-		  break;
-		}
-	      break;
-	    default:
-	      break;
-	    }
-	  if (mainloopfinished)
-	    {
-	      break;
-	    }
+        {
+          if (SDL_PollEvent (&dummyevent))
+            {
+              switch (dummyevent.type)
+                {
+                case SDL_KEYDOWN:
+                  switch (dummyevent.key.keysym.sym)
+                    {
+                    case SDLK_RETURN:	//RET, Space or Esc - stop
+                    case SDLK_ESCAPE:
+                    case SDLK_SPACE:
+                      mainloopfinished = 1;
+                      break;
+                    default:
+                      break;
+                    }
+                  break;
+                default:
+                  break;
+                }
+            }
+          if (mainloopfinished)
+            {
+              mainloopfinished = 0;
+              break;
+            }
 
-	  renderer.RenderTrack ();
+          renderer.RenderTrack ();
 
 	  if (quantum)
 	    {
